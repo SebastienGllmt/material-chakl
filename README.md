@@ -6,7 +6,7 @@ It is built using the latest Typescript and ESM standards, while being compatibl
 
 It is focused on being an opinionated standard to encourage consistent colors for the same namespace across different programming languages and tools, while still being composable with any frontend from [terminal-focused](https://www.npmjs.com/package/chalk) libraries to full GUI applications.
 
-![alt text](static/lib-preview.png)
+![lib-preview](https://github.com/user-attachments/assets/9269f34d-821d-4d75-b966-b3c38e69d635)
 
 # How to Use
 
@@ -49,7 +49,7 @@ const nestedNamespace = parentNamespace.subMaterial('child').formatAs(chalkForma
 
 Namespaces leverage the `blend` concept in Material Design which shifts the hue of the children towards that of the parent.
 
-![alt text](static/blend-example.png)
+![blend-example](https://github.com/user-attachments/assets/b21cd532-0ad6-452a-b3b9-d2e6a3313f50)
 
 ## Building a full palette
 
@@ -87,7 +87,7 @@ printWithChalk(namespaceFoo.neutralVariantPaletteKeyColor, 'Neutral Variant');
 
 Here are some examples of how a namespace looks like under different schemes:
 
-![alt text](static/scheme-preview.png)
+![scheme-preview](https://github.com/user-attachments/assets/1c3b13f8-75a4-4592-a3aa-c650f6444bbd)
 
 ### Material Design v2
 
