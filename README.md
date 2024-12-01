@@ -39,7 +39,7 @@ console.log(
 ```
 
 There are multiple format options available, notably:
-- `Format.Htc` for the direct HCT (hue, color, tone) representation from Material Design
+- `Format.Htc` for the direct HCT (hue, chroma, tone) representation from Material Design
 - `Format.Hex` for a hex color representation (ex: `#ff0000`)
 - `Format.Custom` for a custom format function that you provide
 - `Format.Chalk` for to use Chalk to print with color

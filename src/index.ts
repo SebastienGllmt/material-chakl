@@ -51,14 +51,33 @@ export function colorFromSeed(seed: number): Hct {
 
 type HexColor = `#${string}`;
 
+/**
+ * Generic function to format a namespace into a resulting type
+ */
 export type FormatType<T> = (namespace: Hct) => T;
+
+/**
+ * Static type representing all the different formatters supported by material-chalk
+ */
 export const Format = {
+  /**
+   * Format as a HCT <Hue, Chroma, Tone> tuple used by Material Design
+   */
   Hct: (namespace: Hct): Hct => namespace,
+  /**
+   * Format as a color hex code (ex. #ff0000 for red). Output is always lowercase
+   */
   Hex: (namespace: Hct): HexColor => hexFromArgb(namespace.toInt()) as HexColor,
+  /**
+   * Decorates a given `chalk` object with the color of this material
+   */
   Chalk:
     (chalk: typeof import("chalk").default) =>
     (namespace: Hct): typeof import("chalk").default =>
       chalk.hex(hexFromArgb(namespace.toInt())),
+  /**
+   * Use the material as the source color for a Material Design scheme
+   */
   Scheme:
     <Args extends any[], Result extends DynamicScheme>(
       scheme: SchemeConstructor<Args, Result>,
@@ -66,6 +85,9 @@ export const Format = {
     (...args: Args) =>
     (namespace: Hct): Result =>
       buildScheme(scheme, namespace)(...args),
+  /**
+   * Custom formatter if none of the existing ones satisfy a use-case
+   */
   Custom:
     <T>(fn: (namespace: Hct) => T) =>
     (namespace: Hct): T =>
@@ -89,7 +111,13 @@ function getHct(namespace: string, cache: boolean): Hct {
   return color;
 }
 
+/**
+ * Options used when generating a material for a namespace
+ */
 export type MaterialOptions = {
+  /**
+   * Cache the HCT color generated for a given namespace
+   */
   cache?: boolean;
 };
 

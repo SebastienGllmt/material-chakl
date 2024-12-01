@@ -32,18 +32,21 @@ export function overrideSourceAsPrimary<T extends DynamicScheme>(
   return dynamicScheme;
 }
 
+/**
+ * Constructor signature used by schemes shipped with Material Design v3
+ */
 export type SchemeConstructor<
-  A extends any[],
+  Args extends any[],
   Result extends DynamicScheme,
-> = new (sourceColorHct: Hct, ...args: A) => Result;
+> = new (sourceColorHct: Hct, ...args: Args) => Result;
 /**
  * Returns a DynamicScheme constructor with the first parameter pre-filled with the constructed color
  */
-export function buildScheme<A extends any[], Result extends DynamicScheme>(
-  Scheme: SchemeConstructor<A, Result>,
+export function buildScheme<Args extends any[], Result extends DynamicScheme>(
+  Scheme: SchemeConstructor<Args, Result>,
   fixedValue: Hct,
-): (...args: A) => Result {
-  return (...args: A) => {
+): (...args: Args) => Result {
+  return (...args: Args) => {
     return new Scheme(fixedValue, ...args);
   };
 }
