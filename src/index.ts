@@ -1,5 +1,10 @@
 export * from "./scheme-override.js";
-import { Blend, Hct, hexFromArgb } from "@material/material-color-utilities";
+import {
+  Blend,
+  type DynamicScheme,
+  Hct,
+  hexFromArgb,
+} from "@material/material-color-utilities";
 import fnv1a from "./fnv1a.js";
 import type { SchemeConstructor } from "./scheme-override.js";
 import { buildScheme } from "./scheme-override.js";
@@ -44,20 +49,26 @@ export function colorFromSeed(seed: number): Hct {
   return Hct.from(hue, chroma, tone);
 }
 
+type HexColor = `#${string}`;
+
 export type FormatType<T> = (namespace: Hct) => T;
 export const Format = {
-  Hct: (namespace: Hct) => namespace,
-  Hex: (namespace: Hct) => hexFromArgb(namespace.toInt()),
-  Chalk: (chalk: typeof import("chalk").default) => (namespace: Hct) =>
-    chalk.hex(hexFromArgb(namespace.toInt())),
+  Hct: (namespace: Hct): Hct => namespace,
+  Hex: (namespace: Hct): HexColor => hexFromArgb(namespace.toInt()) as HexColor,
+  Chalk:
+    (chalk: typeof import("chalk").default) =>
+    (namespace: Hct): typeof import("chalk").default =>
+      chalk.hex(hexFromArgb(namespace.toInt())),
   Scheme:
-    <Args extends any[]>(scheme: SchemeConstructor<Args>) =>
+    <Args extends any[], Result extends DynamicScheme>(
+      scheme: SchemeConstructor<Args, Result>,
+    ) =>
     (...args: Args) =>
-    (namespace: Hct) =>
+    (namespace: Hct): Result =>
       buildScheme(scheme, namespace)(...args),
   Custom:
     <T>(fn: (namespace: Hct) => T) =>
-    (namespace: Hct) =>
+    (namespace: Hct): T =>
       fn(namespace),
 };
 

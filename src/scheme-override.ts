@@ -32,17 +32,17 @@ export function overrideSourceAsPrimary<T extends DynamicScheme>(
   return dynamicScheme;
 }
 
-export type SchemeConstructor<A extends any[]> = new (
-  sourceColorHct: Hct,
-  ...args: A
-) => DynamicScheme;
+export type SchemeConstructor<
+  A extends any[],
+  Result extends DynamicScheme,
+> = new (sourceColorHct: Hct, ...args: A) => Result;
 /**
  * Returns a DynamicScheme constructor with the first parameter pre-filled with the constructed color
  */
-export function buildScheme<A extends any[]>(
-  Scheme: SchemeConstructor<A>,
+export function buildScheme<A extends any[], Result extends DynamicScheme>(
+  Scheme: SchemeConstructor<A, Result>,
   fixedValue: Hct,
-): (...args: A) => DynamicScheme {
+): (...args: A) => Result {
   return (...args: A) => {
     return new Scheme(fixedValue, ...args);
   };
