@@ -28,7 +28,7 @@
     "lint": "biome check --write",
     "lint:check": "biome check",
     "prepack": "npm run lint:check && npm run clean && npm run build && npm run test -- --run",
-    "publish": "jsr publish && npm publish",
+    "release": "jsr publish && npm publish",
     "test": "vitest"
   },
   "keywords": [
