@@ -17,7 +17,9 @@ It is built using the latest Typescript and ESM standards, while being compatibl
 
 It is focused on being an opinionated standard to encourage consistent colors for the same namespace across different programming languages and tools, while still being composable with any frontend from [terminal-focused](https://www.npmjs.com/package/chalk) libraries to full GUI applications.
 
-![lib-preview](https://github.com/user-attachments/assets/9269f34d-821d-4d75-b966-b3c38e69d635)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9269f34d-821d-4d75-b966-b3c38e69d635" alt="lib-preview" />
+</p>
 
 # How to Use
 
