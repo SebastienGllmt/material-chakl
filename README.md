@@ -1,8 +1,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/material-chalk">
     <picture>
-      <img src="https://img.shields.io/npm/v/material-chalk
-      " alt="NPM">
+      <img src="https://img.shields.io/npm/v/material-chalk" alt="NPM">
     </picture>
   </a>
   <a href="https://jsr.io/@sebastiengllmt/material-chalk">
