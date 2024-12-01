@@ -1,3 +1,15 @@
+<p align="center">
+  <a href="https://www.npmjs.com/package/material-chalk">
+    <picture>
+      <img src="https://img.shields.io/npm/v/material-chalk
+      " alt="NPM">
+    </picture>
+  </a>
+  <a href="https://jsr.io/@sebastiengllmt/material-chalk">
+    <img src="https://jsr.io/badges/@sebastiengllmt/material-chalk" alt="JSR" />
+  </a>
+</p>
+
 # Overview
 
 `material-chalk` is a library for generating beautiful colors for namespaces based on color theory in a way that is deterministic and extensible.
@@ -39,12 +51,16 @@ There are multiple format options available, notably:
 
 Static nested namespaces
 ```typescript
-const nestedNamespace = createMaterial(['parent', 'child']).formatAs(chalkFormat);
+const nestedNamespace =
+  createMaterial(['parent', 'child'])
+  .formatAs(chalkFormat);
 ```
 Dynamic nested namespaces
 ```typescript
 const parentNamespace = createMaterial('parent');
-const nestedNamespace = parentNamespace.subMaterial('child').formatAs(chalkFormat);
+const nestedNamespace = parentNamespace
+  .subMaterial('child')
+  .formatAs(chalkFormat);
 ```
 
 Namespaces leverage the `blend` concept in Material Design which shifts the hue of the children towards that of the parent.
@@ -64,7 +80,8 @@ import chalk from 'chalk';
 import { createMaterial, sourceAsPrimary, Format } from 'material-chalk'
 import { hexFromArgb, SchemeVibrant } from "@material/material-color-utilities";
 
-// convert one of the many built-in schemes to one that more accurately uses the namespace's color
+// convert one of the many built-in schemes
+// to one that more accurately uses the namespace's color
 const SchemeVibrantNamespace = Format.Scheme(sourceAsPrimary(SchemeVibrant))(
   true, // isDark
   0 // contrast level (for accessibility). 0 is normal contrast
@@ -139,7 +156,7 @@ There are other ad-hoc implementations of generating colors from strings, but th
 | Issue                                       | Other libraries                                                                                                | `material-chalk`                                                  |
 |---------------------------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
 | **Legacy code**                             | old and do not have Typescript/ESM support                                                                     | built on the latest best practices                                |
-| **Poor color choices**                      | no justification based on color theory for why a specific choice was made, leading to poor color choices       | full justification for choices [here](./Justifications.md)                       |
+| **Poor color choices**                      | no justification based on color theory for why a specific choice was made, leading to poor color choices       | full justification for choices [here](https://github.com/SebastienGllmt/material-chalk/blob/master/Justifications.md)                       |
 | **Not extensible** ex: color sub-namespaces | provide no opinionated way on how to extend it for a given namespace                                           | leverage Material Design to build for palettes for your namespace |
 | **Lack of standardization**                 | provide too many configurations leading to inconsistent colors across tools & languages for the same namespace | opinionated deterministic choices based on color theory           |
 | **Limited to RGB**                          | only support the RGB range                                                                                     | supports colors outside the standard RGB range                    |

@@ -28,12 +28,28 @@
     "lint": "biome check --write",
     "lint:check": "biome check",
     "prepack": "npm run lint:check && npm run clean && npm run build && npm run test -- --run",
+    "publish": "npm publish",
     "test": "vitest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "material",
+    "material-design",
+    "color",
+    "chalk",
+    "terminal",
+    "console",
+    "string",
+    "logging",
+    "log",
+    "xterm"
+  ],
+  "author": "Sebastien Guillemot",
   "license": "MIT",
-  "description": "",
+  "description": "Generate beautiful colors from namespaces based on color theory",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SebastienGllmt/material-chalk.git"
+  },
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0"
   },
@@ -51,6 +67,7 @@
     "chalk": "^5.3.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.6",
+    "jsr": ">=0.13.2"
   }
 }

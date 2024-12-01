@@ -1,0 +1,15 @@
+{
+  "name": "@sebastiengllmt/material-chalk",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "publish": {
+    "include": [
+      "README.md",
+      "LICENSE",
+      "src/**/*.ts",
+      "jsr.json"
+    ]
+  }
+}
