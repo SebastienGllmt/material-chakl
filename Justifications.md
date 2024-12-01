@@ -73,7 +73,7 @@ Humans perceive different colors as having different levels of brightness. For e
 
 Similarly, the possible values for `chroma` (similar to saturation) depends on the hue and the one with the range shrinking as the near the minimum and maximum tone values.
 
-![alt text](static/for-tone.mp4)
+<video src="https://github.com/user-attachments/assets/8f37aa07-5006-458b-b364-7511f62ad2a8" autoplay muted loop></video>
 
 Given that we want to generate random colors with as few collisions as possible, we have to take this into account. For example, here is a naive algorithm that fails terribly:
 1. Pick a random hue
@@ -105,7 +105,8 @@ To summarize, we numbers in the following way:
 2. Pick a random tone from `[68, 70]` to ensure we get a vibrant color regardless of the hue that contrasts with a terminal background
 3. Pick a random chroma from `[48, max_chroma]` where `max_chroma` depends on the `<hue, tone>` pair to ensure the color can be used as a primary color for a palette.
 
-This choice results in the following
+This choice results in the following:
+
 ![alt text](static/example-random.png)
 
 ## Alternative parameter choices
