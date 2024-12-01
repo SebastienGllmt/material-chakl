@@ -25,7 +25,9 @@
     "build": "npm run build:cjs && npm run build:esm",
     "clean": "rimraf dist",
     "rename:esm": "./scripts/fix-mjs.sh",
-    "prepack": "npm run clean && npm run build && npm run test",
+    "lint": "biome check --write",
+    "lint:check": "biome check",
+    "prepack": "npm run lint:check && npm run clean && npm run build && npm run test",
     "test": "vitest"
   },
   "keywords": [],

@@ -1,4 +1,8 @@
-import { Hct, DynamicScheme, TonalPalette } from "@material/material-color-utilities";
+import {
+  type DynamicScheme,
+  type Hct,
+  TonalPalette,
+} from "@material/material-color-utilities";
 
 type Constructor = new (...args: any[]) => DynamicScheme;
 
@@ -18,21 +22,28 @@ export function sourceAsPrimary<T extends Constructor>(baseScheme: T): T {
 /**
  * Overrides the primaryPalette of the DynamicScheme at runtime
  */
-export function overrideSourceAsPrimary<T extends DynamicScheme>(dynamicScheme: T): T {
+export function overrideSourceAsPrimary<T extends DynamicScheme>(
+  dynamicScheme: T,
+): T {
   // cast away "readonly"
-  (dynamicScheme.primaryPalette as any) = TonalPalette.fromHct(dynamicScheme.sourceColorHct);
+  (dynamicScheme.primaryPalette as any) = TonalPalette.fromHct(
+    dynamicScheme.sourceColorHct,
+  );
   return dynamicScheme;
 }
 
-export type SchemeConstructor<A extends any[]> = new (sourceColorHct: Hct, ...args: A) => DynamicScheme;
+export type SchemeConstructor<A extends any[]> = new (
+  sourceColorHct: Hct,
+  ...args: A
+) => DynamicScheme;
 /**
  * Returns a DynamicScheme constructor with the first parameter pre-filled with the constructed color
  */
 export function buildScheme<A extends any[]>(
   Scheme: SchemeConstructor<A>,
-  fixedValue: Hct
+  fixedValue: Hct,
 ): (...args: A) => DynamicScheme {
   return (...args: A) => {
-      return new Scheme(fixedValue, ...args);
+    return new Scheme(fixedValue, ...args);
   };
 }
