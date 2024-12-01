@@ -9,7 +9,7 @@ export interface Options {
 
 	@default 32
 	*/
-  readonly size?: 32 | 64 | 128 | 256 | 512 | 1024;
+  readonly size?: 32;
 
   /**
 	A Uint8Array used to encode the string into UTF-8 bytes.
@@ -43,7 +43,10 @@ const FNV_OFFSETS = {
 
 const cachedEncoder = new globalThis.TextEncoder();
 
-function fnv1aUint8Array(uint8Array: Uint8Array, size: number): bigint {
+function fnv1aUint8Array(
+  uint8Array: Uint8Array,
+  size: NonNullable<Options["size"]>,
+): bigint {
   const fnvPrime = FNV_PRIMES[size];
   let hash: bigint = FNV_OFFSETS[size];
 

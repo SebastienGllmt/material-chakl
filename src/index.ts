@@ -1,8 +1,8 @@
-export * from "./scheme_fixed.js";
+export * from "./scheme-override.js";
 import { Blend, Hct, hexFromArgb } from "@material/material-color-utilities";
 import fnv1a from "./fnv1a.js";
-import type { SchemeConstructor } from "./scheme_fixed.js";
-import { buildScheme } from "./scheme_fixed.js";
+import type { SchemeConstructor } from "./scheme-override.js";
+import { buildScheme } from "./scheme-override.js";
 
 /**
  * Given a seed of randomly generated bites, allow consuming bits as needed
