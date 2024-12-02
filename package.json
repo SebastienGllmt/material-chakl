@@ -1,6 +1,6 @@
 {
   "name": "material-chalk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/cjs/index.d.ts",
@@ -27,7 +27,7 @@
     "rename:esm": "./scripts/fix-mjs.sh",
     "lint": "biome check --write",
     "lint:check": "biome check",
-    "prepack": "npm run lint:check && npm run clean && npm run build && npm run test -- --run",
+    "prerelease": "npm run lint:check && npm run clean && npm run build && npm run test -- --run",
     "release": "jsr publish && npm publish",
     "test": "vitest"
   },
