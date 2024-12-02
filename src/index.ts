@@ -14,17 +14,26 @@ import { buildScheme } from "./scheme-override.js";
  * Note: this only works up to the 32 bits
  */
 function consumableRandomness(seed: number): {
-  consume: (val: number) => number;
+  consume: (val: number, precision: number) => number;
 } {
   let remainingRandomness = seed >>> 0; // Convert to unsigned 32-bit integer
   return {
-    consume: (val: number) => {
-      const result = remainingRandomness % val;
-
-      const bitsConsumed = Math.ceil(Math.log2(val));
-      remainingRandomness = remainingRandomness >>> bitsConsumed; // Use unsigned right shift
-
-      return result;
+    consume: (val, precision) => {
+      const bits = Math.ceil(Math.log2(val));
+      // take `bits` for the whole number part, plus `precision` extra bits for the floating point parts
+      const mask = (1 << (bits + precision)) - 1;
+      // take a number within the bit range
+      const result = remainingRandomness % mask;
+      // note: `result` is a number from [0, 2^bits]
+      //       so we need to rescale it to [0, val]
+      //       do this by dividing by mask (becomes a [0,1] range)
+      //       then multiply by val
+      //       DANGER: multiply first before dividing to avoid precision loss!
+      //               we have up to Number.MAX_SAFE_INTEGER, so multiplication won't lead to precision loss
+      //               but division can, so we leave it to last
+      const final = (result * val) / mask;
+      remainingRandomness = remainingRandomness >>> (bits + precision); // Use unsigned right shift
+      return final;
     },
   };
 }
@@ -33,19 +42,29 @@ function consumableRandomness(seed: number): {
  * Generates a color deterministically based on the seed provided
  */
 export function colorFromSeed(seed: number): Hct {
+  // note: sum of `bits` in this function adds up to exactly 32
   const randomness = consumableRandomness(seed);
-
-  const hue = randomness.consume(360);
-
+  const hue = randomness.consume(
+    360, // 9 bits
+    5, // 5 bits
+  );
   // pick a tone that guarantees chroma >= 48 exists (see justification.md to learn more)
-  const tone = 68 + randomness.consume(3);
-
+  const tone =
+    68 +
+    randomness.consume(
+      2, // 2 bits
+      5, // 5 bits
+    );
   // pick a chroma >= 48
   const minChroma = 48;
   const maxChroma = Hct.from(hue, 200, tone).chroma; // pick a chroma that is way too high and see what it gets clamped to
   const range = maxChroma - minChroma;
-  const chroma = minChroma + randomness.consume(range);
-
+  const chroma =
+    minChroma +
+    randomness.consume(
+      range, // at most 6 bits on the tone interval we care about (could be up to 8 bits otherwise)
+      5, // 5 bit
+    );
   return Hct.from(hue, chroma, tone);
 }
 
