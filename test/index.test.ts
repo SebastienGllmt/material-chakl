@@ -1,7 +1,13 @@
 import { SchemeVibrant, hexFromArgb } from "@material/material-color-utilities";
 import chalk from "chalk";
 import { expect, test } from "vitest";
-import { Format, createMaterial, sourceAsPrimary } from "../src/index.js";
+import {
+  Format,
+  createMaterial,
+  registerBrand,
+  matchColor,
+  sourceAsPrimary,
+} from "../src/index.js";
 
 test("Format.Hex", () => {
   const namespace = createMaterial("foo").formatAs(Format.Hex);
@@ -52,4 +58,13 @@ test("subMaterial", () => {
     .toInt()
     .toString(16);
   expect(num2).toBe(num);
+});
+
+test("registerBrand", () => {
+  const baseColor = "#ff0000";
+  const color = matchColor(baseColor);
+  registerBrand("registerBrandTest", color.formatAs(Format.Hct));
+
+  const namespace = createMaterial("registerBrandTest").formatAs(Format.Hct);
+  expect(namespace.toInt()).toBe(color.formatAs(Format.Hct).toInt());
 });
