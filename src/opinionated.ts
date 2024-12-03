@@ -2,13 +2,13 @@
  * File for opinionated ways to format common cases
  */
 
-import { argbFromHex, Hct } from "@material/material-color-utilities";
+import { Hct, argbFromHex } from "@material/material-color-utilities";
 import {
-  TONE_RANGE,
-  createMaterial,
   Format,
   type NamespaceResult,
+  TONE_RANGE,
   colorToNamespace,
+  createMaterial,
 } from "./core.js";
 
 export function chainedMessage(

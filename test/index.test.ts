@@ -4,8 +4,8 @@ import { expect, test } from "vitest";
 import {
   Format,
   createMaterial,
-  registerBrand,
   matchColor,
+  registerBrand,
   sourceAsPrimary,
 } from "../src/index.js";
 
