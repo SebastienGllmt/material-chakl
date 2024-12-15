@@ -38,7 +38,9 @@ export function chainedMessage(
       header.push(mix.formatAs(chalkFormat)("-"));
     }
   }
-  const fullNamespace = createMaterial(namespace).formatAs(chalkFormat);
+  const fullNamespace = createMaterial(
+    namespace[namespace.length - 1],
+  ).formatAs(chalkFormat);
   return `${header.join("")}: ${fullNamespace(...s)}`;
 }
 
